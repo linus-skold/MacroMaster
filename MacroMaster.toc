@@ -1,0 +1,7 @@
+## Interface: 900010
+## Title: MacroMaster
+## Author: Linus 'Decode'
+##SavedVariables: ClassMacrosDB
+
+ArtTextureID.lua
+MacroMaster.lua

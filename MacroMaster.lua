@@ -63,7 +63,6 @@ SlashCmdList["MACRO_MASTER"] = function (args)
         startImport(profile, realmName)
     elseif command == "help" then 
         help();
-    end
 end
 
 
@@ -89,6 +88,8 @@ end
 
 ---
 function exportMacros(exportTable) 
+    local lMacroSlots = getMacroSlots()
+
     for i=121,138 do 
         local name, iconId, body, isLocal = GetMacroInfo(i)
         if name ~= nil and iconId ~= nil and body ~= nil then
@@ -100,6 +101,7 @@ function exportMacros(exportTable)
                 name,
                 icon,
                 body,
+                lMacroSlots[i]
             }
             table.insert(exportTable, macro)
         end
@@ -113,29 +115,25 @@ function startImport(profile, realmName)
     if realmName ~= nil then
         importKey = getKey(profile, realmName)
     end
-
     playerMacros = ClassMacrosDB[importKey]
-   
-   
-   
     StaticPopup_Show("MACRO_MASTER")
-
-   
-   
 end
 
+-- macro 121 to 138 is your local character macro
 function importMacros(importTable) 
     StaticPopup_Hide("MACRO_MASTER")
     for i=0,18 do
         DeleteMacro(121)
     end
     for i=1,table.getn(importTable) do
-        local macro = importTable[i]
-        local icon = macro[2]
+        local name, icon, macro, slot = importTable[i][1], importTable[i][2],importTable[i][3], importTable[i][4]
         if type(icon) == 'number' then
             icon = getIcon(icon)
         end
-        CreateMacro(macro[1], icon, macro[3], 1)
+        CreateMacro(name, icon, macro, 1)
+        if slot ~= nil then
+            placeMacro(120+i, slot)
+        end
     end
 end
 
@@ -145,3 +143,20 @@ function help()
     print('/mm export [profile] -- Exports your current characters CHARACTER SPECIFIC macros unless a profile name is specified')
 end
 
+function placeMacro(macroId, actionSlot) 
+    PickupMacro(macroId)
+    PlaceAction(actionSlot)
+    ClearCursor()
+end
+
+function getMacroSlots()
+    local lTable = {}
+	local lActionSlot = 0
+    for lActionSlot = 1, 120 do
+        local actionType, id = GetActionInfo(lActionSlot)
+        if actionType == 'macro' then
+            lTable[id] = lActionSlot
+        end
+    end
+    return lTable
+end

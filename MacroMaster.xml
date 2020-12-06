@@ -1,0 +1,12 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\..\FrameXML\UI.xsd">
+    <Frame name="FRAME">
+<Size>
+		<AbsDimension x="100" y="100" />
+	</Size>
+	<Anchors>
+		<Anchor point="TOPLEFT" />
+	</Anchors>
+        <Button name="TheButtom_MacroMasterButton" parent="MacroMaster">
+        </Button>
+    </Frame>
+ </Ui>

@@ -15,7 +15,6 @@ end
 
 local playerClassMacros = {}
 local playerMacros = {}
-
 local importKey = ""
 
 function frame:OnEvent(event, arg1)
@@ -44,6 +43,9 @@ function frame:OnEvent(event, arg1)
           }
 
     elseif event == "PLAYER_LOGOUT" then 
+        if ClassMacrosDB == nil then
+            ClassMacrosDB = {}
+        end
         -- ClassMacrosDB[englishClass] = playerClassMacros
     end
 end
@@ -58,11 +60,15 @@ SlashCmdList["MACRO_MASTER"] = function (args)
     if command == "export" then
         playerMacros = {}
         exportMacros(playerMacros)
+        if ClassMacrosDB == nil then
+            ClassMacrosDB = {}
+        end
         ClassMacrosDB[profile] = playerMacros
     elseif command == "import" then
         startImport(profile, realmName)
     elseif command == "help" then 
         help();
+    end
 end
 
 
@@ -97,12 +103,16 @@ function exportMacros(exportTable)
             if checkTooltip(body) == true or icon == nil then
                 icon = "INV_Misc_QuestionMark" -- Make sure it's the ? icon
             end
+            local currSpec = GetSpecialization()
+            local currSpecName = select(2, GetSpecializationInfo(currSpec))
+            local slot = lMacroSlots[i]
             local macro = {
                 name,
                 icon,
                 body,
-                lMacroSlots[i]
+                ["slots"] = { [currSpecName] = slot }
             }
+
             table.insert(exportTable, macro)
         end
     end

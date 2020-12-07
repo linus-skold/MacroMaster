@@ -71,7 +71,6 @@ SlashCmdList["MACRO_MASTER"] = function (args)
     end
 end
 
-
 -- 
 function getIcon(iconId) 
     local icon = addon.ArtTexturePaths[iconId]
@@ -119,7 +118,6 @@ function exportMacros(exportTable)
 end
 
 --
-
 function startImport(profile, realmName) 
     importKey = profile
     if realmName ~= nil then

@@ -1,6 +1,6 @@
 ## Interface: 900010
 ## Title: MacroMaster
-## Author: Linus 'Decode'
+## Author: OriginalDecode
 ## Notes: Make it easier to create new characters of the same class, move macros easily between toons with import and export
 ##SavedVariables: ClassMacrosDB
 ##SavedVariablesPerCharacter: CharacterProperties

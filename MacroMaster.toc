@@ -1,4 +1,4 @@
-## Interface: 900010
+## Interface: 100207
 ## Title: MacroMaster
 ## Author: OriginalDecode
 ## Notes: Make it easier to create new characters of the same class, move macros easily between toons with import and export
@@ -7,4 +7,3 @@
 
 ArtTextureID.lua
 MacroMaster.lua
-MacroMaster.xml
